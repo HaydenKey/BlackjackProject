@@ -23,20 +23,19 @@ public class Main {
         playerHand.printHand();
 
         //asks for hit
-        while (playerHand.getTotal() <= 21 && playerHand.size() < 5) {
+        while (playerHand.getTotal() < 21 && playerHand.size() < 5) {
             System.out.println("\nWould you like another Card? (y/n)");
             input = sc.nextLine();
 
             System.out.println(input);
 
-            if (input.equals("y") || playerHand.getTotal() < 21) {
+            if (input.equals("y") && playerHand.getTotal() < 21) {
                 playerHand.add(deck.pop());
                 System.out.println();
                 playerHand.printHand();
             } else if (playerHand.getTotal() > 21) {
                 System.out.println("You have busted.  Try again.");
-            } else if (playerHand.getTotal() == 21) {
-                System.out.println("Blackjack!");
+                break;
             } else {
                 break;
             }
@@ -45,8 +44,28 @@ public class Main {
 
         if (playerHand.getTotal() <= 21 && playerHand.size() < 5) {
             System.out.println("\n*****DEALER PLAYS*****");
-            dealerHand.printHiddenHand();
+            dealerHand.printRevealedHand();
+            while (true) {
+                if (dealerHand.getTotal() <= 16) {
+                    dealerHand.add(deck.pop());
+                } else {
+                    break;
+                }
+            }
 
+            System.out.println();
+        }
+
+        if (playerHand.getTotal() <= 21) {
+            if (dealerHand.getTotal() < playerHand.getTotal()) {
+                System.out.println("You Win!");
+            } else if (dealerHand.getTotal() == playerHand.getTotal()) {
+                System.out.println("It's a tie!");
+            } else {
+                System.out.println("You Lose!");
+            }
+        } else {
+            System.out.println("You Busted!");
         }
     }
 }

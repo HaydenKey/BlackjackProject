@@ -43,8 +43,10 @@ public class Dealer {
     public void printRevealedHand() {
         System.out.println("\nDealer's Hand: ");
 
-        for (int i = 1; i < hand.size(); i++) {
+        for (int i = 0; i < hand.size(); i++) {
             System.out.println("\t" + hand.get(i).getValue() + " OF " + hand.get(i).getSuit());
         }
+
+        System.out.println("Total: " + total);
     }
 }
